@@ -1,0 +1,45 @@
+{
+  "name": "Your Name",
+  "state": "Connecticut",
+  "state_law": "Connecticut Data Privacy Act (Conn. Gen. Stat. § 42-515 et seq.)",
+  "own_addresses": ["you@example.com", "you.work@example.org"],
+
+  "promo_max_read": 0.30,
+  "promo_min_list": 0.60,
+  "promo_min_count": 5,
+
+  "protected_domains": [
+    "gmail.com", "google.com", "apple.com", "microsoft.com", "github.com",
+    "paypal.com", "chase.com", "bankofamerica.com", "americanexpress.com", "capitalone.com", "citi.com",
+    "irs.gov", "uscis.gov", "ssa.gov", "state.gov",
+    "your-university.edu", "your-employer.com"
+  ],
+  "mixed_domains": [
+    "linkedin.com", "uber.com", "lyftmail.com", "rakuten.com", "eventbrite.com", "cvs.com",
+    "dominos.com", "mcdonalds.com", "doordash.com", "grubhub.com", "yelp.com", "ebay.com", "indeed.com"
+  ],
+  "junkish_user_labels": ["Unroll.me/Unsubscribed", "Promotional", "Shopping"],
+
+  "patterns": {
+    "social_domains": "(facebookmail|facebook\\.com|instagram|snapchat|tiktok|twitter|^x\\.com|redditmail|quora|pinterest|discord|threads\\.net)",
+    "adult": "(porn|xxx|onlyfans|fansly|redgifs|chaturbate|stripchat|escort|hookup|fetlife|whatsyourprice|bumble|tinder|hinge|okcupid|grindr|coffeemeetsbagel)",
+    "security_subject": "(password|passcode|reset|verif|confirm|\\bcode\\b|one-time|otp|log ?in|sign ?in|security|two-factor|2fa|suspicious|unusual|new device|locked|recover)",
+    "receipt_subject": "(order|receipt|deliver|shipped|your trip|itinerary|booking|reservation|ticket|invoice|payment|refund|statement|transaction|application|interview|offer letter|password|verif|security)",
+    "message_subject": "(messaged you|new message|message from|sent you|inmail|replied to you)",
+    "privacy_subject": "(Consumer Data Request|Request to Delete Personal Data|Withdrawal of Consent|Erasure Request|Privacy Rights|Privacy Request|Request received)"
+  },
+
+  "own_label": "🤖 My Automations & Notes",
+  "buckets": [
+    {"label": "🔐 Accounts & Security", "domains": "accounts\\.google|accountprotection\\.microsoft|account-security|id\\.apple|okta|duo|authy", "subject": "security alert|new sign.?in|verification code|password reset|two-factor|2-step"},
+    {"label": "🏢 Work", "domains": "your-employer\\.com"},
+    {"label": "💰 Finance", "domains": "bank|paypal|venmo|zelle|sofi\\.|chase|citi\\.com|capitalone|americanexpress|discover\\.com|robinhood|fidelity|vanguard|schwab|wise\\.com|remitly|splitwise|experian|equifax|transunion|geico|progressive|statefarm|insurance"},
+    {"label": "🛍️ Shopping & Orders", "domains": "amazon\\.|walmart|target\\.com|costco|bestbuy|ebay|etsy|shopify|instacart|doordash|grubhub|ubereats|starbucks|dunkin", "subject": "order|receipt|delivered|shipped|invoice|refund"},
+    {"label": "✈️ Travel & Transport", "domains": "airbnb|uber\\.com|lyft|united\\.com|delta\\.com|aa\\.com|southwest|jetblue|amtrak|expedia|booking\\.com|marriott|hilton|hertz|enterprise|turo|gasbuddy"},
+    {"label": "💼 Jobs & Career", "domains": "linkedin|indeed|handshake|workday|icims|greenhouse|lever\\.co|smartrecruiters|jobvite|glassdoor|ziprecruiter|jobs2web|workablemail|applytojob", "subject": "application|interview|offer|recruit"},
+    {"label": "🎓 Education", "domains": "\\.edu$|\\.edu\\.|\\.ac\\.|instructure|coursera|udemy|edx|kaggle|ets\\.org"},
+    {"label": "🏛️ Government & Immigration", "domains": "\\.gov$|\\.gov\\.|uscis|irs|ssa"},
+    {"label": "💻 Tech & Dev", "domains": "github|gitlab|vercel|cloudflare|supabase|netlify|aws|google\\.com|anthropic|claude\\.com|openai|notion|figma|slack|atlassian|docker|npmjs|microsoft\\.com|dropbox|zoom\\.us"},
+    {"label": "🏠 Home & Utilities", "domains": "xfinity|comcast|verizon|t-mobile|att\\.com|spectrum|optimum|eversource|nationalgrid|zillow|apartments\\.com|rentcafe|ups\\.com|fedex|usps"}
+  ]
+}
