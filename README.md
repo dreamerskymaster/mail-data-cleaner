@@ -1,8 +1,13 @@
 # Mail Data Cleaner
 
-A [Claude Code](https://claude.com/claude-code) **skill** that cleans and organizes every
-email account you've connected to **Apple Mail on macOS** (Gmail, Outlook/Exchange, iCloud),
-with no API keys or OAuth apps.
+[![Skill: Claude Code](https://img.shields.io/badge/Skill-Claude%20Code-d97706?style=for-the-badge&logo=anthropic&logoColor=white)](https://claude.com/claude-code)
+[![Launch Video](https://img.shields.io/badge/Launch%20Video-MP4-ff0055?style=for-the-badge&logo=youtube&logoColor=white)](brag-output/brag.mp4)
+[![Platform: macOS](https://img.shields.io/badge/Platform-macOS%20Apple%20Mail-000000?style=for-the-badge&logo=apple&logoColor=white)](https://apple.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+A Claude Code skill that cleans, unsubscribes, labels, and sends statutory data-deletion requests across every Apple Mail account (Gmail, Outlook, iCloud) with zero API keys or OAuth setups. Approval-gated, recoverable, and privacy-law aware.
+
+![Mail Data Cleaner Demo](docs/demo.gif)
 
 What it does, with your approval at every destructive step:
 

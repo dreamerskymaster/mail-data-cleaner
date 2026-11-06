@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Mail Data Cleaner Launch</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #0a0e14;
+        --surface: #111822;
+        --border: #1e293b;
+        --amber: #f59e0b;
+        --amber-glow: rgba(245, 158, 11, 0.25);
+        --emerald: #10b981;
+        --blue: #38bdf8;
+        --purple: #a855f7;
+        --ink: #f8fafc;
+        --muted: #94a3b8;
+        --font-mono: 'JetBrains Mono', monospace;
+        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-sans);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 25%, #182333 0%, #0a0e14 80%);
+      }
+
+      .terminal-grid {
+        position: absolute;
+        inset: 0;
+        background-size: 48px 48px;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        pointer-events: none;
+      }
+
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 100px;
+        opacity: 0;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 28px;
+        border-radius: 9999px;
+        background: rgba(245, 158, 11, 0.12);
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        color: var(--amber);
+        font-family: var(--font-mono);
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        box-shadow: 0 0 25px var(--amber-glow);
+      }
+
+      .hero-title {
+        font-size: 88px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+        text-align: center;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #ffffff 40%, #f59e0b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 28px;
+        color: var(--muted);
+        text-align: center;
+        max-width: 1050px;
+        line-height: 1.45;
+      }
+
+      .term-window {
+        width: 100%;
+        max-width: 1400px;
+        background: #0d121c;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        overflow: hidden;
+      }
+
+      .term-bar {
+        background: #141c2b;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .t-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+      }
+      .t-red { background: #ef4444; }
+      .t-yellow { background: #eab308; }
+      .t-green { background: #22c55e; }
+
+      .term-body {
+        padding: 36px 40px;
+        font-family: var(--font-mono);
+        font-size: 21px;
+        line-height: 1.8;
+      }
+
+      .term-prompt {
+        color: var(--amber);
+        margin-bottom: 20px;
+        font-weight: 700;
+      }
+
+      .term-line {
+        color: #e2e8f0;
+        margin-bottom: 12px;
+      }
+
+      .law-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        width: 100%;
+        max-width: 1300px;
+        margin-top: 30px;
+      }
+
+      .law-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .law-title {
+        font-family: var(--font-mono);
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--blue);
+      }
+
+      .law-desc {
+        font-size: 17px;
+        color: var(--muted);
+      }
+
+      .install-cmd {
+        margin-top: 36px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        background: #090d14;
+        border: 1px solid rgba(245, 158, 11, 0.4);
+        padding: 20px 40px;
+        border-radius: 16px;
+        font-family: var(--font-mono);
+        font-size: 24px;
+        color: var(--amber);
+        box-shadow: 0 0 35px var(--amber-glow);
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="bgm" data-start="0" data-duration="18.0" data-track-index="0" data-volume="0.85" src="assets/music/bgm.mp3"></audio>
+    <audio id="sfx-chime" data-start="0.4" data-duration="0.62" data-track-index="1" data-volume="0.6" src="assets/sfx/chime.ogg"></audio>
+    <audio id="sfx-click-1" data-start="4.8" data-duration="0.13" data-track-index="1" data-volume="0.6" src="assets/sfx/click.ogg"></audio>
+    <audio id="sfx-click-2" data-start="9.8" data-duration="0.13" data-track-index="1" data-volume="0.6" src="assets/sfx/click.ogg"></audio>
+    <audio id="sfx-chime-end" data-start="14.2" data-duration="0.62" data-track-index="1" data-volume="0.6" src="assets/sfx/chime.ogg"></audio>
+
+    <div id="root" data-composition-id="root" data-width="1920" data-height="1080">
+      <div class="terminal-grid"></div>
+
+      <!-- Scene 1: Hook -->
+      <div id="scene-1" class="scene">
+        <div class="badge">🛡️ Claude Code Skill • Apple Mail on macOS</div>
+        <h1 class="hero-title">Mail Data Cleaner</h1>
+        <p class="hero-subtitle">Inventory, clean, unsubscribe, and exercise legal data-deletion rights across every connected email account with zero API keys or OAuth setups.</p>
+      </div>
+
+      <!-- Scene 2: CLI Workflow -->
+      <div id="scene-2" class="scene">
+        <div class="term-window">
+          <div class="term-bar">
+            <span class="t-dot t-red"></span>
+            <span class="t-dot t-yellow"></span>
+            <span class="t-dot t-green"></span>
+            <span style="font-family: var(--font-mono); font-size: 15px; color: var(--muted); margin-left: 12px;">claude-code — mail-data-cleaner</span>
+          </div>
+          <div class="term-body">
+            <div class="term-prompt">❯ claude "clean up my email and request company data deletion"</div>
+            <div class="term-line"><span style="color: var(--emerald);">✓</span> Indexed 42,180 messages from local SQLite in 1.2s</div>
+            <div class="term-line"><span style="color: var(--emerald);">✓</span> Unsubscribed 184 senders via RFC 8058 one-click headers</div>
+            <div class="term-line"><span style="color: var(--emerald);">✓</span> Moved 1,420 marketing threads to recoverable Trash</div>
+            <div class="term-line"><span style="color: var(--blue);">→</span> Generated 36 statutory deletion letters (CCPA, CTDPA, DPDP, GDPR)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 3: Statutory Legal Framework -->
+      <div id="scene-3" class="scene">
+        <div class="badge">⚖️ Grounded in Real Privacy Laws</div>
+        <h2 style="font-size: 58px; font-weight: 800; text-align: center; margin-bottom: 8px;">Legally Sound Deletion Letters</h2>
+        <div class="law-grid">
+          <div class="law-card">
+            <div class="law-title">US State Privacy Acts</div>
+            <div class="law-desc">Enforces statutory consumer opt-outs under CCPA, CTDPA, and state consumer privacy frameworks.</div>
+          </div>
+          <div class="law-card">
+            <div class="law-title">Financial Services (GLBA-Aware)</div>
+            <div class="law-desc">Recognizes financial records retention laws while pruning marketing databases.</div>
+          </div>
+          <div class="law-card">
+            <div class="law-title">India DPDP & IT Rules</div>
+            <div class="law-desc">Compliant with Digital Personal Data Protection Act requirements for fiduciary erasure.</div>
+          </div>
+          <div class="law-card">
+            <div class="law-title">European Union GDPR</div>
+            <div class="law-desc">Article 17 Right to Erasure with direct supervisory verification references.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scene 4: Installation & Safety -->
+      <div id="scene-4" class="scene">
+        <div class="badge">🔒 100% On-Device • Approval Gated</div>
+        <h2 style="font-size: 72px; font-weight: 800; text-align: center; margin-bottom: 16px;">Reclaim Your Inbox & Identity</h2>
+        <p style="font-size: 26px; color: var(--muted); text-align: center; max-width: 900px;">Nothing is ever permanently deleted. Zero third-party cloud trackers.</p>
+        <div class="install-cmd">
+          <span>git clone https://github.com/dreamerskymaster/mail-data-cleaner</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      // Scene 1: 0.0s - 4.5s
+      tl.to("#scene-1", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 0.2)
+        .to("#scene-1", { opacity: 0, duration: 0.5, y: -20 }, 4.2);
+
+      // Scene 2: 4.5s - 9.2s
+      tl.to("#scene-2", { opacity: 1, duration: 0.8, scale: 1, startAt: { scale: 0.95 } }, 4.7)
+        .to("#scene-2", { opacity: 0, duration: 0.5, y: -20 }, 9.0);
+
+      // Scene 3: 9.2s - 14.0s
+      tl.to("#scene-3", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 9.4)
+        .to("#scene-3", { opacity: 0, duration: 0.5, y: -20 }, 13.8);
+
+      // Scene 4: 14.0s - 18.0s
+      tl.to("#scene-4", { opacity: 1, duration: 0.8, y: 0, startAt: { y: 20 } }, 14.2)
+        .to("#scene-4", { opacity: 0, duration: 0.6 }, 17.4);
+    </script>
+  </body>
+</html>
